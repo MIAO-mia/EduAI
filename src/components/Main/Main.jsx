@@ -6,7 +6,9 @@ import { Context } from "../../context/Context";
 import MarkdownRenderer from "../MarkdownRenderer/MarkdownRenderer";
 
 const MessageRow = ({ message }) => (
-  <div className={`message-item ${message.role === "assistant" ? "ai-message" : "user-message"}`}>
+  <div
+    className={`message-item ${message.role === "assistant" ? "ai-message" : "user-message"}`}
+  >
     <img
       src={message.role === "assistant" ? assets.gemini_icon : assets.user_icon}
       alt=""
@@ -24,8 +26,12 @@ const MessageRow = ({ message }) => (
           <MarkdownRenderer content={message.content} />
         </div>
       )}
-      {message.status === "aborted" && <span className="message-status">已中断</span>}
-      {message.status === "failed" && <span className="message-status error">生成失败</span>}
+      {message.status === "aborted" && (
+        <span className="message-status">已中断</span>
+      )}
+      {message.status === "failed" && (
+        <span className="message-status error">生成失败</span>
+      )}
     </div>
   </div>
 );
@@ -49,7 +55,7 @@ const Main = () => {
     voiceError,
     voiceInputStatus,
     voiceTranscript,
-    scrollToBottom
+    scrollToBottom,
   } = useContext(Context);
 
   const handleInputChange = (event) => {
@@ -69,7 +75,7 @@ const Main = () => {
   return (
     <div className="main">
       <div className="nav">
-        <p>yuanAI</p>
+        <p>EduAI</p>
         <img src={assets.user_icon} alt="" />
       </div>
       <div className="main-container">
@@ -82,19 +88,31 @@ const Main = () => {
               <p>How can I help you?</p>
             </div>
             <div className="cards">
-              <div className="card" onClick={() => onSent("建议一些即将自驾游时可以去的美丽景点")}>
-                <p>建议一些即将自驾游时可以去的美丽景点</p>
+              <div
+                className="card"
+                onClick={() => onSent("推荐一些适合自学的编程资源")}
+              >
+                <p>推荐一些适合自学的编程资源</p>
                 <img src={assets.compass_icon} alt="" />
               </div>
-              <div className="card" onClick={() => onSent('简要总结一下"城市规划"这个概念')}>
-                <p>简要总结一下"城市规划"这个概念</p>
+              <div
+                className="card"
+                onClick={() => onSent('简要解释一下"机器学习"的基础概念')}
+              >
+                <p>简要解释一下"机器学习"的基础概念</p>
                 <img src={assets.bulb_icon} alt="" />
               </div>
-              <div className="card" onClick={() => onSent("为我们的团队拓展活动集思广益")}>
-                <p>为我们的团队拓展活动集思广益</p>
+              <div
+                className="card"
+                onClick={() => onSent("帮我制定一个学习计划")}
+              >
+                <p>帮我制定一个学习计划</p>
                 <img src={assets.message_icon} alt="" />
               </div>
-              <div className="card" onClick={() => onSent("提升以下代码的可读性")}>
+              <div
+                className="card"
+                onClick={() => onSent("提升以下代码的可读性")}
+              >
                 <p>提升以下代码的可读性</p>
                 <img src={assets.code_icon} alt="" />
               </div>
@@ -108,7 +126,9 @@ const Main = () => {
                 className="chat-virtuoso"
                 data={messages}
                 followOutput={isAtBottom ? "auto" : false}
-                itemContent={(index, message) => <MessageRow key={message.id || index} message={message} />}
+                itemContent={(index, message) => (
+                  <MessageRow key={message.id || index} message={message} />
+                )}
                 atBottomStateChange={(bottom) => setIsAtBottom(bottom)}
                 overscan={240}
               />
@@ -120,7 +140,11 @@ const Main = () => {
           <div className="search-box">
             <input
               onChange={handleInputChange}
-              value={voiceInputStatus === "recording" ? voiceTranscript || input : input}
+              value={
+                voiceInputStatus === "recording"
+                  ? voiceTranscript || input
+                  : input
+              }
               type="text"
               onKeyDown={handleKeyPress}
               placeholder="在这里输入提示"
@@ -138,9 +162,15 @@ const Main = () => {
                       ? "结束录音"
                       : "开始语音输入"
                 }
-                disabled={!isVoiceSupported || voiceInputStatus === "processing"}
+                disabled={
+                  !isVoiceSupported || voiceInputStatus === "processing"
+                }
               >
-                <img src={assets.mic_icon} alt="麦克风图标" className="mic-button-icon" />
+                <img
+                  src={assets.mic_icon}
+                  alt="麦克风图标"
+                  className="mic-button-icon"
+                />
               </button>
               {isGenerating ? (
                 <img
@@ -164,10 +194,17 @@ const Main = () => {
                     ? "识别中"
                     : "语音输入"}
               </span>
-              <p>{voiceError || (voiceInputStatus === "recording" ? "请开始说话，点击麦克风结束录音。" : "正在处理语音内容…")}</p>
+              <p>
+                {voiceError ||
+                  (voiceInputStatus === "recording"
+                    ? "请开始说话，点击麦克风结束录音。"
+                    : "正在处理语音内容…")}
+              </p>
             </div>
           )}
-          <p className="bottom-info">yuanAI 可能会显示不准确的信息，请仔细检查其回复。</p>
+          <p className="bottom-info">
+            EduAI 可能会显示不准确的信息，请仔细检查其回复。
+          </p>
         </div>
       </div>
     </div>
