@@ -83,7 +83,7 @@ const Main = () => {
           <>
             <div className="greet">
               <p>
-                <span>hello, yuan</span>
+                <span>Hello!</span>
               </p>
               <p>How can I help you?</p>
             </div>
